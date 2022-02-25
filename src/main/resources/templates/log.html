@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head th:include="common :: frag_head">
+	</head>
+	<body>
+		<script>
+			$(function() {
+				$('#btnDelete').click(function(e) {
+					var result = window.confirm('ログをすべて削除します。よろしいですか？');
+					if(result) {
+						window.location.href = '/log/delete';
+					}
+
+				});
+
+			});
+		</script>
+
+		<div th:include="common :: header">
+		</div>
+		<div style="padding: 50px 5% 50px 5%;">
+			<div style="padding-bottom: 20px;">
+				<a href="/log" id="btnReresh" type="button" class="btn btn-success" >Refresh</a>　
+				<a id="btnDelete" class="btn btn-danger">Delete Log</a>
+			</div>
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Date</th>
+						<th scope="col">Log</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="log : ${log}">
+						<td style="width: 35%" th:text="${log.date}"></td>
+						<td style="width: 65%" th:text="${log.log}"></td>
+					</tr>			
+				</tbody>
+			</table>
+		</div>
+		
+		<div th:include="common :: now-loading">
+		</div>
+	</body>
+</html>

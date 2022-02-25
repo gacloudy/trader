@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head th:include="common :: frag_head">
+	</head>
+	<body>
+		<script>
+			$(function() {
+				$('#btnRegisterDateHistory').click(function(e) {
+					$('.now-loading').show();
+					
+					$.ajax({
+						type: "GET",
+						url : "/batch/registerDateHistory",
+						data: {},
+						dataType: "json",
+						success : function(data) {
+							if(data['result']) {
+								alert("株価日付テータ登録が完了しました");
+							} else {
+								alert("株価日付テータ登録に失敗しました");
+							}
+						},
+						error : function(XMLHttpRequest, textStatus, errorThrown) {
+							alert("株価日付テータ登録に失敗しました");
+						}
+					}).always(function(processedDataOrXHRWrapper, textStatus, xhrWrapperOrErrorThrown) {
+						$('.now-loading').hide();
+					});
+				});
+			});
+		</script>
+
+		<div th:include="common :: header">
+		</div>
+		<div style="padding: 50px 10% 50px 10%;">
+			<table class="table">
+				<tbody>
+					<tr>
+						<td style="width: 80%">
+							株価日付テータ登録
+						</td>
+						<td style="width: 20%">
+							<a id="btnRegisterDateHistory" type="button" class="btn btn-success" >
+								実行
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div th:include="common :: now-loading">
+		</div>
+	</body>
+</html>
