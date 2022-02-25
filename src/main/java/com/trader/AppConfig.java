@@ -12,23 +12,23 @@ import org.apache.coyote.ajp.AbstractAjpProtocol;
 @Configuration
 public class AppConfig {
 
-    @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainer() {
-        return server ->
-            Optional.ofNullable(server)
-                    .ifPresent(s -> s.addAdditionalTomcatConnectors(redirectConnector()));
-    }
+	@Bean
+	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainer() {
+		return server ->
+			Optional.ofNullable(server)
+					.ifPresent(s -> s.addAdditionalTomcatConnectors(redirectConnector()));
+	}
  
-    @SuppressWarnings("rawtypes")
+	@SuppressWarnings("rawtypes")
 	private Connector redirectConnector() {
-        Connector connector = new Connector("AJP/1.3");
-        connector.setScheme("http");
-        connector.setPort(8009);
-        connector.setRedirectPort(8443);
-        connector.setSecure(false);
-        connector.setAllowTrace(false);
-        ((AbstractAjpProtocol) connector.getProtocolHandler()).setSecretRequired(false);
-        
-        return connector;
-    }
+		Connector connector = new Connector("AJP/1.3");
+		connector.setScheme("http");
+		connector.setPort(8009);
+		connector.setRedirectPort(8443);
+		connector.setSecure(false);
+		connector.setAllowTrace(false);
+		((AbstractAjpProtocol) connector.getProtocolHandler()).setSecretRequired(false);
+		
+		return connector;
+	}
 }

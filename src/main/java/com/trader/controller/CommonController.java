@@ -1,8 +1,6 @@
 package com.trader.controller;
 
 import java.util.Date;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,13 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trader.entity.db.ApplicationLog;
-import com.trader.entity.db.StockMst;
 import com.trader.repositories.ApplicationLogRepository;
 import com.trader.repositories.IndustryTypeMstRepository;
 import com.trader.repositories.StockDateHistoryRepository;
