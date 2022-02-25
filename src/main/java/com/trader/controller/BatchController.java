@@ -21,7 +21,6 @@ import com.trader.util.HttpUtil;
 @Controller
 public class BatchController extends CommonController {
 
-	
 	@RequestMapping("/batch")
 	public ModelAndView batch(ModelAndView mav) {
 
