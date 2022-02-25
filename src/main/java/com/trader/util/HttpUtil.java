@@ -13,20 +13,6 @@ import java.util.regex.Pattern;
 
 public class HttpUtil {
 	
-	public static void main(String[] args) throws Exception {
-		int code = 8411;
-		List<String> list =
-				getHttpPage("https://finance.yahoo.co.jp/quote/" + code + ".T");
-
-		System.out.println(isYahooStarted(list));
-//		System.out.println(getYesterdayPrice(list));
-//		System.out.println(getStartPrice(list));
-//		System.out.println(getHighestPrice(list));
-//		System.out.println(getLowestPrice(list));
-//		System.out.println(getAmount(list));
-		;
-	}
-	
 	private static final Pattern PATTERN_PRICE = Pattern.compile(">[0-9]{0,3},?[0-9]{0,3},?[0-9]{1,3}\\.?[0-9]?株?</span>");
 	private static final String LABEL_ALERT = "</span>アラート設定</a>";
 	private static final String LABEL_HEADER_CLOSE = "</header>";
