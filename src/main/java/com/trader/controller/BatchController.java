@@ -21,6 +21,7 @@ import com.trader.util.HttpUtil;
 @Controller
 public class BatchController extends CommonController {
 
+	
 	@RequestMapping("/batch")
 	public ModelAndView batch(ModelAndView mav) {
 
@@ -36,7 +37,7 @@ public class BatchController extends CommonController {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
-		addLog("株価日付テータ登録開始");
+		addLog("譬ｪ萓｡譌･莉倥ユ繝ｼ繧ｿ逋ｻ骭ｲ髢句ｧ�");
 
 		try {
 			String dateKey = DateUtil.getyyyyMMddStrFromDate(new Date());
@@ -65,11 +66,11 @@ public class BatchController extends CommonController {
 						stockDateHistoryRepository.save(stockDateHistory);
 					}
 				} catch (Exception e) {
-					addLog("株価日付テータ登録に失敗：" + mst.getCode());
+					addLog("譬ｪ萓｡譌･莉倥ユ繝ｼ繧ｿ逋ｻ骭ｲ縺ｫ螟ｱ謨暦ｼ�" + mst.getCode());
 				}
 			}
 			
-			addLog("株価日付テータ登録終了");
+			addLog("譬ｪ萓｡譌･莉倥ユ繝ｼ繧ｿ逋ｻ骭ｲ邨ゆｺ�");
 	
 		} catch (Exception e) {
 			result.put("result", false);
