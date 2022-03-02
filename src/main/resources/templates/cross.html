@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head th:include="common :: frag_head">
+	</head>
+	<body>
+		<script>
+			$(function() {
+				$('#btnExe').click(function(e) {
+					var ajaxData={};
+					ajaxData['code'] = $('#code').val();
+					ajaxData['date'] = $('#date').val();
+					ajaxData['longTerm'] = $('#longTerm').val();
+					ajaxData['shortTerm'] = $('#shortTerm').val();
+					
+					$('.now-loading').show();
+
+					$.ajax({
+						type: "GET",
+						url : "/cross/exe",
+						data: ajaxData,
+						dataType: "json",
+						success : function(data) {
+							if(data['result']) {
+								alert("ゴールデンクロス");
+							} else {
+								alert("ゴールデンクロスなし");
+							}
+						},
+						error : function(XMLHttpRequest, textStatus, errorThrown) {
+							alert("株価日付テータ登録に失敗しました");
+						}
+					}).always(function(processedDataOrXHRWrapper, textStatus, xhrWrapperOrErrorThrown) {
+						$('.now-loading').hide();
+					});
+				});
+
+				$('#btnAllExe').click(function(e) {
+					var ajaxData={};
+
+					$('.now-loading').show();
+
+					$.ajax({
+						type: "GET",
+						url : "/cross/exeAll",
+						data: ajaxData,
+						dataType: "json",
+						success : function(data) {
+								alert(data);
+						},
+						error : function(XMLHttpRequest, textStatus, errorThrown) {
+							alert("株価日付テータ登録に失敗しました");
+						}
+					}).always(function(processedDataOrXHRWrapper, textStatus, xhrWrapperOrErrorThrown) {
+						$('.now-loading').hide();
+					});
+				});
+			});
+		</script>
+
+		<div th:include="common :: header">
+		</div>
+		<div style="padding: 50px 5% 50px 5%;">
+			COde:<input type="text" id="code" value="9984"><br>
+			Date:<input type="text" id="date" value="20220302"><br>
+			Long:<input type="text" id="longTerm" value="5"><br>
+			Short:<input type="text" id="shortTerm" value="3"><br><br>
+		
+		
+			<div style="padding-bottom: 20px;">
+				<a id="btnExe" type="button" class="btn btn-success" >Exe</a>　
+			</div>
+			<div style="padding-bottom: 20px;">
+				<a id="btnAllExe" type="button" class="btn btn-success" >All Exe</a>　
+			</div>
+		</div>
+		
+		<div th:include="common :: now-loading">
+		</div>
+	</body>
+</html>

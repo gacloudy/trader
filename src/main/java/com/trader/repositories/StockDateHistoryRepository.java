@@ -17,4 +17,5 @@ public interface StockDateHistoryRepository extends JpaRepository<StockDateHisto
 	@Query(value="SELECT * FROM stock_date_history WHERE code = :code AND price_date <= :price_date ORDER BY price_date DESC", nativeQuery = true)
 	List<StockDateHistory> findByCodeAndPriceDateLessThanEqual(@Param("code") int code, @Param("price_date")  String priceDate);
 
+
 }

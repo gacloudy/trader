@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.trader.Constants;
 import com.trader.entity.db.StockDateAvg;
 import com.trader.entity.db.StockDateAvgPK;
 import com.trader.entity.db.StockDateHistory;
@@ -112,7 +113,7 @@ public class BatchController extends CommonController {
 					List<StockDateHistory> list =
 							stockDateHistoryRepository.findByCodeAndPriceDateLessThanEqual(mst.getCode(), dateKey);
 					
-					for(int i = 2; i <= 25; i++) {
+					for(int i = 2; i <= Constants.LONGEST_SPAN; i++) {
 						if(list.size() >= i) {
 							double sum = 0.0;
 							for(int j = 0; j < i; j++) {
