@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.trader.entity.db.ApplicationLog;
 import com.trader.repositories.ApplicationLogRepository;
 import com.trader.repositories.IndustryTypeMstRepository;
+import com.trader.repositories.StockDateAvgRepository;
 import com.trader.repositories.StockDateHistoryRepository;
 import com.trader.repositories.StockMstRepository;
 import com.trader.util.CacheUtil;
@@ -40,6 +41,9 @@ public abstract class CommonController {
 
 	@Autowired
 	protected StockDateHistoryRepository stockDateHistoryRepository;
+
+	@Autowired
+	protected StockDateAvgRepository stockDateAvgRepository;
 
 	@Autowired
 	protected ApplicationLogRepository applicationLogRepository;

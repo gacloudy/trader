@@ -27,6 +27,29 @@
 						$('.now-loading').hide();
 					});
 				});
+				
+				$('#btnRegisterAvg').click(function(e) {
+					$('.now-loading').show();
+					
+					$.ajax({
+						type: "GET",
+						url : "/batch/registerAvg",
+						data: {},
+						dataType: "json",
+						success : function(data) {
+							if(data['result']) {
+								alert("株価平均テータ登録が完了しました");
+							} else {
+								alert("株価平均テータ登録に失敗しました");
+							}
+						},
+						error : function(XMLHttpRequest, textStatus, errorThrown) {
+							alert("株価平均テータ登録に失敗しました");
+						}
+					}).always(function(processedDataOrXHRWrapper, textStatus, xhrWrapperOrErrorThrown) {
+						$('.now-loading').hide();
+					});
+				});
 			});
 		</script>
 
@@ -41,6 +64,16 @@
 						</td>
 						<td style="width: 20%">
 							<a id="btnRegisterDateHistory" type="button" class="btn btn-success" >
+								実行
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 80%">
+							株価平均テータ登録
+						</td>
+						<td style="width: 20%">
+							<a id="btnRegisterAvg" type="button" class="btn btn-success" >
 								実行
 							</a>
 						</td>
