@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.trader.Constants;
+import com.trader.entity.db.StockDateCross;
 import com.trader.entity.db.StockMst;
 import com.trader.util.DateUtil;
 
@@ -34,12 +35,12 @@ public class CrossController extends CommonController {
 	public Map<String, Object> exe(
 			@RequestParam(value="code", required = true)int code,
 			@RequestParam(value="date", required = true)String date,
-			@RequestParam(value="longTerm", required = true)int longTerm,
-			@RequestParam(value="shortTerm", required = true)int shortTerm
+			@RequestParam(value="longSpan", required = true)int longSpan,
+			@RequestParam(value="shortSpan", required = true)int shortSpan
 			) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		result.put("result", analyzeCross(code, date, longTerm, shortTerm));
+		result.put("result", analyzeCross(code, date, longSpan, shortSpan));
 
 		return result;
 
@@ -61,12 +62,15 @@ public class CrossController extends CommonController {
 					
 					dateKey = "20220302";
 
+					stockDateCrossRepository.deleteByPriceDate(dateKey);
+					
 					if(analyzeCross(mst.getCode(), dateKey, i, j)) {
+						
 						Map<String, Object> map =
 								new HashMap<String, Object>();
 						map.put("code", mst.getCode());
-						map.put("longTerm", i);
-						map.put("shortTerm", j);
+						map.put("longSpan", i);
+						map.put("shortSpan", j);
 						
 						result.add(map);
 					}

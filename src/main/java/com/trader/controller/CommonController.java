@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trader.entity.db.ApplicationLog;
 import com.trader.entity.db.StockDateAvg;
+import com.trader.entity.db.StockDateCross;
+import com.trader.entity.db.StockDateCrossPK;
 import com.trader.repositories.ApplicationLogRepository;
 import com.trader.repositories.IndustryTypeMstRepository;
 import com.trader.repositories.StockDateAvgRepository;
+import com.trader.repositories.StockDateCrossRepository;
 import com.trader.repositories.StockDateHistoryRepository;
 import com.trader.repositories.StockMstRepository;
 import com.trader.util.CacheUtil;
@@ -51,6 +54,9 @@ public abstract class CommonController {
 	protected StockDateAvgRepository stockDateAvgRepository;
 
 	@Autowired
+	protected StockDateCrossRepository stockDateCrossRepository;
+
+	@Autowired
 	protected ApplicationLogRepository applicationLogRepository;
 
 	@PersistenceContext
@@ -71,10 +77,10 @@ public abstract class CommonController {
 	protected boolean analyzeCross(
 			int code,
 			String date,
-			int longTerm,
-			int shortTerm
+			int longSpan,
+			int shortSpan
 			) {
-		if(shortTerm >= longTerm) {
+		if(shortSpan >= longSpan) {
 			return false;
 		}
 		
@@ -82,11 +88,11 @@ public abstract class CommonController {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(DateUtil.getDateFromyyyyMMddStr(date));
 			String dateTo = DateUtil.getyyyyMMddStrFromDate(cal.getTime());
-			cal.add(Calendar.DATE, -1 * longTerm * 2);
+			cal.add(Calendar.DATE, -1 * longSpan * 2);
 			String dateFrom = DateUtil.getyyyyMMddStrFromDate(cal.getTime());
 			
 			List<StockDateAvg> listShort =
-					stockDateAvgRepository.findByCodeAndAndSpanPriceDateBetwee(code, shortTerm,  dateFrom, dateTo);
+					stockDateAvgRepository.findByCodeAndAndSpanPriceDateBetwee(code, shortSpan,  dateFrom, dateTo);
 			Map<String, Double> mapShort = 
 					new HashMap<String, Double>();
 			for(StockDateAvg avg : listShort) {
@@ -94,8 +100,8 @@ public abstract class CommonController {
 			}
 			
 			List<StockDateAvg> listLong =
-					stockDateAvgRepository.findByCodeAndAndSpanPriceDateBetwee(code, longTerm,  dateFrom, dateTo);
-			if(listLong.size() < longTerm) {
+					stockDateAvgRepository.findByCodeAndAndSpanPriceDateBetwee(code, longSpan,  dateFrom, dateTo);
+			if(listLong.size() < longSpan) {
 				return false;
 			}
 			Map<String, Double> mapLong = 
@@ -113,7 +119,7 @@ public abstract class CommonController {
 			
 			boolean buyFlg = priceShort > priceLong;
 			
-			for(int i = 1; i < longTerm; i++) {
+			for(int i = 1; i < longSpan; i++) {
 				cal.setTime(DateUtil.getDateFromyyyyMMddStr(date));
 				cal.add(Calendar.DATE, -1 * i);
 				String dateKey = DateUtil.getyyyyMMddStrFromDate(cal.getTime());
@@ -131,7 +137,20 @@ public abstract class CommonController {
 					return false;
 				}
 			}
+			
+			StockDateCross obj =
+					new StockDateCross();
+			StockDateCrossPK pk = new StockDateCrossPK(code, date, longSpan, shortSpan);
+			obj.setPk(pk);
+			obj.setSign(buyFlg?"buy":"sale");
+			stockDateCrossRepository.save(obj);
+			
 		} catch (Exception e) {
+			addLog("analyzeCrossに失敗"
+					+ " code:" + code
+					+ " date:" + date
+					+ " longSpan:" + longSpan
+					+ " shortSpan:" + shortSpan);
 			return false;
 		}			
 
