@@ -145,4 +145,43 @@ public class BatchController extends CommonController {
 
 		return result;
 	}
+	
+	@RequestMapping(value = "/batch/registerCross", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> batchRegisterCross(ModelAndView mav) {
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		addLog("ゴールデンクロスデータ登録開始");
+
+		try {
+
+			String dateKey = DateUtil.getyyyyMMddStrFromDate(new Date());
+			
+			for(StockMst mst : cUtil.getStockMap().values()) {
+				try {
+					for(int i = 2; i <= Constants.LONGEST_SPAN; i++) {
+						for(int j = 2; j <= Constants.LONGEST_SPAN; j++) {
+							if(i <= j) {
+								continue;
+							}
+
+							
+							analyzeCross(mst.getCode(), dateKey, i, j);
+						}
+					}
+				} catch (Exception e) {
+					addLog("ゴールデンクロステータ登録に失敗：" + mst.getCode());
+				}
+			}
+			addLog("ゴールデンクロステータ登録終了");
+	
+		} catch (Exception e) {
+			result.put("result", false);
+		}			
+
+		result.put("result", true);
+
+		return result;
+	}
 }

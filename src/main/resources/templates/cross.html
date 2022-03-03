@@ -36,6 +36,7 @@
 
 				$('#btnAllExe').click(function(e) {
 					var ajaxData={};
+					ajaxData['date'] = $('#date').val();
 
 					$('.now-loading').show();
 
@@ -44,6 +45,7 @@
 						url : "/cross/exeAll",
 						data: ajaxData,
 						dataType: "json",
+						timeout: 1000 * 60 * 30,
 						success : function(data) {
 								alert(data);
 						},

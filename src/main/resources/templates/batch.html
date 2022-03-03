@@ -50,6 +50,29 @@
 						$('.now-loading').hide();
 					});
 				});
+				
+				$('#btnRegisterCross').click(function(e) {
+					$('.now-loading').show();
+					
+					$.ajax({
+						type: "GET",
+						url : "/batch/registerCross",
+						data: {},
+						dataType: "json",
+						success : function(data) {
+							if(data['result']) {
+								alert("ゴールデンクロステータ登録が完了しました");
+							} else {
+								alert("ゴールデンクロステータ登録に失敗しました");
+							}
+						},
+						error : function(XMLHttpRequest, textStatus, errorThrown) {
+							alert("ゴールデンクロステータ登録に失敗しました");
+						}
+					}).always(function(processedDataOrXHRWrapper, textStatus, xhrWrapperOrErrorThrown) {
+						$('.now-loading').hide();
+					});
+				});
 			});
 		</script>
 
@@ -74,6 +97,16 @@
 						</td>
 						<td style="width: 20%">
 							<a id="btnRegisterAvg" type="button" class="btn btn-success" >
+								実行
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 80%">
+							ゴールデンクロステータ登録
+						</td>
+						<td style="width: 20%">
+							<a id="btnRegisterCross" type="button" class="btn btn-success" >
 								実行
 							</a>
 						</td>

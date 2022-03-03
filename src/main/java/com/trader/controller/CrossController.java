@@ -48,23 +48,21 @@ public class CrossController extends CommonController {
 
 	@RequestMapping(value = "/cross/exeAll", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Map<String, Object>> exeAll() {
+	public List<Map<String, Object>> exeAll(
+			@RequestParam(value="date", required = true)String date) {
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 		
+		stockDateCrossRepository.deleteByPriceDate(date);
+
 		for(StockMst mst : cUtil.getStockMap().values()) {
-			for(int i = 1; i <= Constants.LONGEST_SPAN; i++) {
-				for(int j = 1; j <= Constants.LONGEST_SPAN; j++) {
+			for(int i = 2; i <= Constants.LONGEST_SPAN; i++) {
+				for(int j = 2; j <= Constants.LONGEST_SPAN; j++) {
 					if(i <= j) {
 						continue;
 					}
-					
-					String dateKey = DateUtil.getyyyyMMddStrFromDate(new Date());
-					
-					dateKey = "20220302";
 
-					stockDateCrossRepository.deleteByPriceDate(dateKey);
 					
-					if(analyzeCross(mst.getCode(), dateKey, i, j)) {
+					if(analyzeCross(mst.getCode(), date, i, j)) {
 						
 						Map<String, Object> map =
 								new HashMap<String, Object>();

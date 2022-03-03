@@ -98,6 +98,9 @@ public abstract class CommonController {
 			for(StockDateAvg avg : listShort) {
 				mapShort.put(avg.getPk().getPriceDate(), avg.getAvgPrice());
 			}
+			if(!mapShort.containsKey(date)) {
+				return false;
+			}
 			
 			List<StockDateAvg> listLong =
 					stockDateAvgRepository.findByCodeAndAndSpanPriceDateBetwee(code, longSpan,  dateFrom, dateTo);
@@ -108,6 +111,9 @@ public abstract class CommonController {
 					new HashMap<String, Double>();
 			for(StockDateAvg avg : listLong) {
 				mapLong.put(avg.getPk().getPriceDate(), avg.getAvgPrice());
+			}
+			if(!mapLong.containsKey(date)) {
+				return false;
 			}
 			
 			double priceShort = mapShort.get(date);
@@ -150,7 +156,8 @@ public abstract class CommonController {
 					+ " code:" + code
 					+ " date:" + date
 					+ " longSpan:" + longSpan
-					+ " shortSpan:" + shortSpan);
+					+ " shortSpan:" + shortSpan
+					+ e.toString());
 			return false;
 		}			
 
