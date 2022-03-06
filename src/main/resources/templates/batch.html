@@ -73,6 +73,30 @@
 						$('.now-loading').hide();
 					});
 				});
+				
+				$('#btnRegisterAnalyze').click(function(e) {
+					$('.now-loading').show();
+					
+					$.ajax({
+						type: "GET",
+						url : "/batch/registerAnalyze",
+						data: {},
+						dataType: "json",
+						success : function(data) {
+							if(data['result']) {
+								alert("売買結果登録が完了しました");
+							} else {
+								alert("売買結果登録に失敗しました");
+							}
+						},
+						error : function(XMLHttpRequest, textStatus, errorThrown) {
+							alert("売買結果登録に失敗しました");
+						}
+					}).always(function(processedDataOrXHRWrapper, textStatus, xhrWrapperOrErrorThrown) {
+						$('.now-loading').hide();
+					});
+				});
+				
 			});
 		</script>
 
@@ -107,6 +131,16 @@
 						</td>
 						<td style="width: 20%">
 							<a id="btnRegisterCross" type="button" class="btn btn-success" >
+								実行
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 80%">
+							売買結果登録
+						</td>
+						<td style="width: 20%">
+							<a id="btnRegisterAnalyze" type="button" class="btn btn-success" >
 								実行
 							</a>
 						</td>

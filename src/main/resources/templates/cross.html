@@ -34,6 +34,30 @@
 					});
 				});
 
+				$('#btnCalc').click(function(e) {
+					var ajaxData={};
+					ajaxData['code'] = $('#code').val();
+					ajaxData['date'] = $('#date').val();
+					ajaxData['longSpan'] = $('#longSpan').val();
+					ajaxData['shortSpan'] = $('#shortSpan').val();
+					
+					$('.now-loading').show();
+
+					$.ajax({
+						type: "GET",
+						url : "/cross/calc",
+						data: ajaxData,
+						dataType: "json",
+						success : function(data) {
+								alert(data["result"]);
+						},
+						error : function(XMLHttpRequest, textStatus, errorThrown) {
+							alert("株価日付テータ登録に失敗しました");
+						}
+					}).always(function(processedDataOrXHRWrapper, textStatus, xhrWrapperOrErrorThrown) {
+						$('.now-loading').hide();
+					});
+				});
 				$('#btnAllExe').click(function(e) {
 					var ajaxData={};
 					ajaxData['date'] = $('#date').val();
@@ -73,6 +97,9 @@
 			</div>
 			<div style="padding-bottom: 20px;">
 				<a id="btnAllExe" type="button" class="btn btn-success" >All Exe</a>　
+			</div>
+			<div style="padding-bottom: 20px;">
+				<a id="btnCalc" type="button" class="btn btn-success" >Calc</a>　
 			</div>
 		</div>
 		

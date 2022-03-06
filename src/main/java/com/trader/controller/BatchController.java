@@ -1,5 +1,6 @@
 package com.trader.controller;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.trader.Constants;
+import com.trader.entity.db.AnalyzeSign;
 import com.trader.entity.db.StockDateAvg;
 import com.trader.entity.db.StockDateAvgPK;
+import com.trader.entity.db.StockDateCross;
 import com.trader.entity.db.StockDateHistory;
 import com.trader.entity.db.StockDateHistoryPK;
 import com.trader.entity.db.StockMst;
@@ -176,6 +179,44 @@ public class BatchController extends CommonController {
 			}
 			addLog("ゴールデンクロステータ登録終了");
 	
+		} catch (Exception e) {
+			result.put("result", false);
+		}			
+
+		result.put("result", true);
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/batch/registerAnalyze", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> registerAnalyze(ModelAndView mav) {
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		addLog("売買結果 登録開始");
+
+		try {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			cal.add(Calendar.DATE, -5);
+			String dateKey = DateUtil.getyyyyMMddStrFromDate(cal.getTime());
+
+			for(StockMst mst : cUtil.getStockMap().values()) {
+				addLog("売買結果 登録開始：" + mst.getCode());
+				for(AnalyzeSign as : cUtil.getAnalyzeSignMap().values()) {
+					try {
+						for(StockDateCross cross : stockDateCrossRepository.findByCodeAndPriceDate(mst.getCode(), dateKey)) {
+							if(as.getSign().equals(cross.getSign())) {
+								registerAnalyzeResult(mst.getCode(), cross, as);
+							}
+						}
+					} catch (Exception e) {
+						addLog("売買結果 登録に失敗：" + mst.getCode());
+					}
+				}
+			}
+			addLog("売買結果 登録終了");
 		} catch (Exception e) {
 			result.put("result", false);
 		}			

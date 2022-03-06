@@ -14,7 +14,9 @@ public class CachingConfig {
 		
 		return new ConcurrentMapCacheManager(
 				 "stockMstInfo",
-				 "stockMstMap"
+				 "stockMstMap",
+				 "goldenCross",
+				 "analyzeSign"
 				);
 	}
 }

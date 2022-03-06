@@ -1,7 +1,7 @@
 package com.trader.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.trader.Constants;
-import com.trader.entity.db.StockDateCross;
+import com.trader.entity.db.StockDateAvg;
+import com.trader.entity.db.StockDateHistory;
 import com.trader.entity.db.StockMst;
 import com.trader.util.DateUtil;
 
@@ -45,6 +46,63 @@ public class CrossController extends CommonController {
 		return result;
 
 	}
+	
+	@RequestMapping(value = "/cross/calc", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> calc(
+			@RequestParam(value="code", required = true)int code,
+			@RequestParam(value="date", required = true)String date,
+			@RequestParam(value="longSpan", required = true)int longSpan,
+			@RequestParam(value="shortSpan", required = true)int shortSpan
+			) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("result", -1);
+
+		try {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(DateUtil.getDateFromyyyyMMddStr(date));
+			cal.add(Calendar.DATE, -1);
+			String dateYesterDay = DateUtil.getyyyyMMddStrFromDate(cal.getTime());
+			
+			cal.add(Calendar.MONTH, -1);
+
+			List<StockDateAvg> sList =
+					stockDateAvgRepository.findByCodeAndSpanAndPriceDateBetween(code, shortSpan, DateUtil.getyyyyMMddStrFromDate(cal.getTime()), dateYesterDay);
+			if(sList.isEmpty()) {
+				return result;
+			}
+
+			List<StockDateAvg> lList =
+					stockDateAvgRepository.findByCodeAndSpanAndPriceDateBetween(code, longSpan, DateUtil.getyyyyMMddStrFromDate(cal.getTime()), dateYesterDay);
+			if(lList.isEmpty()) {
+				return result;
+			}
+
+			//boolean buyFlg = sList.get(0).getAvgPrice() > lList.get(0).getAvgPrice();
+
+			cal.setTime(DateUtil.getDateFromyyyyMMddStr(date));
+			cal.add(Calendar.MONTH, -2);
+			List<StockDateHistory> priceList =
+					stockDateHistoryRepository.findByCodeAndPriceDateBetween(code, DateUtil.getyyyyMMddStrFromDate(cal.getTime()), dateYesterDay);
+			double sPriceSum = 0.0;
+			for(int i = 0; i < shortSpan - 1; i++) {
+				sPriceSum += priceList.get(i).getEndPrice();
+			}
+			
+			double lPriceSum = 0.0;
+			for(int i = 0; i < longSpan - 1; i++) {
+				lPriceSum += priceList.get(i).getEndPrice();
+			}
+			
+			double signPrice = (shortSpan * lPriceSum - longSpan * sPriceSum) / (longSpan - shortSpan);
+
+			result.put("result", signPrice);
+
+		} catch (Exception e) {
+		}
+		return result;
+	}
+	
 
 	@RequestMapping(value = "/cross/exeAll", method = RequestMethod.GET)
 	@ResponseBody
