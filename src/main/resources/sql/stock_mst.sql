@@ -33,7 +33,7 @@ insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (4901,'富士フイルムホールディングス(株)','FUJIFILM Holdings Corporation','7','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (4911,'(株)資生堂','Shiseido Co., Ltd.','7','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (5108,'(株)ブリヂストン','Bridgestone Corporation','98','1');
-insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (5401,'新日鐵住金','NIPPON STEEL & SUMITOMO METAL CORPORATION','1','1');
+insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (5401,'日本製鉄(株)','NIPPON STEEL & SUMITOMO METAL CORPORATION','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6098,'(株)リクルートホールディングス','Recruit Holdings Co.,Ltd.','98','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6273,'ＳＭＣ(株)','SMC Corporation','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6301,'コマツ','Komatsu Ltd.','1','1');
@@ -43,19 +43,19 @@ insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6503,'三菱電機(株)','Mitsubishi Electric Corp.','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6594,'日本電産(株)','Nidec Corporation','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6752,'パナソニック(株)','Panasonic Corporation','1','1');
-insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6758,'ソニー(株)','Sony Corporation','1','1');
+insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6758,'ソニーグループ(株)','Sony Corporation','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6861,'(株)キーエンス','KEYENCE CORPORATION','1','1');
-insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6902,' (株)デンソー','DENSO Corporation','1','1');
+insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6902,'(株)デンソー','DENSO Corporation','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6954,'ファナック(株)','FANUC Corporation','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6971,'京セラ(株)','Kyocera Corporation','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (6981,'(株)村田製作所','Murata Manufacturing Co., Ltd.','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (7203,'トヨタ自動車(株)','Toyota Motor Corporation','2','1');
-insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (7261,'マツダ','Mazda Motor Corporation','2','1');
+insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (7261,'マツダ(株)','Mazda Motor Corporation','2','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (7267,'ホンダ','Honda Motor Co., Ltd.','2','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (7741,'ＨＯＹＡ(株)','HOYA CORPORATION','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (7751,'キヤノン(株)','Canon Inc.','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (8001,'伊藤忠商事(株)','ITOCHU Corporation','5','1');
-insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (8031,'三井物産','MITSUI & CO., LTD.','5','1');
+insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (8031,'三井物産(株)','MITSUI & CO., LTD.','5','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (8035,'東京エレクトロン(株)','Tokyo Electron Limited','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (8053,'住友商事(株)','SUMITOMO CORPORATION','5','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (8058,'三菱商事(株)','Mitsubishi Corp.','5','1');
@@ -73,7 +73,7 @@ insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (9433,'ＫＤＤＩ(株)','KDDI CORPORATION','1','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (9437,'(株)ＮＴＴドコモ','NTT DOCOMO, INC.','4','0');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (9613,'(株)ＮＴＴデータ','NTT DATA Corporation','4','1');
-insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (9983,' (株)ファーストリテイリング','Fast Retailing Co., Ltd.','6','1');
+insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (9983,'(株)ファーストリテイリング','Fast Retailing Co., Ltd.','6','1');
 insert into trader.stock_mst(`code`,`stock_name`,`stock_name_en`,`industry_type`,`gathering_flg`) values (9984,'ソフトバンクグループ(株)','SoftBank Group Corp.','4','1');
 
 

@@ -13,6 +13,8 @@ public class IndexController extends CommonController {
 
 		mav.setViewName("index");
 
+		mav.addObject("countByPriceDate", stockDateHistoryRepository.countByPriceDate());
+
 		return mav;
 	}
 

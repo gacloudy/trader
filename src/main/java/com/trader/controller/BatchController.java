@@ -57,7 +57,7 @@ public class BatchController extends CommonController {
 							HttpUtil.getStockHTTP(mst.getCode());
 					
 					if(!httpList.isEmpty() && HttpUtil.isYahooStarted(httpList)) {
-						double endPrice = HttpUtil.getPrice(httpList);
+						double endPrice = HttpUtil.getPrice(httpList, mst.getStockName());
 						if(endPrice <= 0.0) {
 							continue;
 						}
@@ -104,7 +104,7 @@ public class BatchController extends CommonController {
 		try {
 
 			String dateKey = DateUtil.getyyyyMMddStrFromDate(new Date());
-			
+
 			for(StockMst mst : cUtil.getStockMap().values()) {
 				try {
 					Optional<StockDateHistory> stockDateHistory =
@@ -160,7 +160,7 @@ public class BatchController extends CommonController {
 		try {
 
 			String dateKey = DateUtil.getyyyyMMddStrFromDate(new Date());
-			
+
 			for(StockMst mst : cUtil.getStockMap().values()) {
 				try {
 					for(int i = 2; i <= Constants.LONGEST_SPAN; i++) {
@@ -169,7 +169,6 @@ public class BatchController extends CommonController {
 								continue;
 							}
 
-							
 							analyzeCross(mst.getCode(), dateKey, i, j);
 						}
 					}

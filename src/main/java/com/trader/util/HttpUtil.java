@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class HttpUtil {
 	
 	private static final Pattern PATTERN_PRICE = Pattern.compile(">[0-9]{0,3},?[0-9]{0,3},?[0-9]{1,3}\\.?[0-9]?株?</span>");
-	private static final String LABEL_ALERT = "</span>アラート設定</a>";
+	private static final String LABEL_ALERT = "</h1>";
 	private static final String LABEL_HEADER_CLOSE = "</header>";
 	private static final String LABEL_YESTERDAY_PRICE = ">前日終値</span>";
 	private static final String LABEL_START_PRICE = ">始値</span>";
@@ -23,8 +23,14 @@ public class HttpUtil {
 	private static final String LABEL_AMOUNT = ">出来高</span>";
 	private static final String LABEL_BUY_SALE = ">売買代金</span>";
 	
+//	public static void main(String args[]) throws Exception {
+//		FileUtil.writeFile("C:\\sts-4.13.1.RELEASE\\workspace\\aaa.txt", getHttpPage("https://finance.yahoo.co.jp/quote/9984.T"));
+//		System.out.println(HttpUtil.getPrice(getHttpPage("https://finance.yahoo.co.jp/quote/9983.T"), "(株)ファーストリテイリング"));
+//	}
+
 	public static boolean isYahooStarted(List<String> list) {
 		String dateKey = DateUtil.getDateFromMMSddStr(new Date());
+		dateKey = "03/08";
 
 		try {
 			for(String row : list) {
@@ -61,9 +67,9 @@ public class HttpUtil {
 	/**
 	 * 株価取得
 	 */
-	public static double getPrice(List<String> list) {
+	public static double getPrice(List<String> list, String stockName) {
 		
-		return extractNumber(list, LABEL_ALERT, LABEL_HEADER_CLOSE);
+		return extractNumber(list, stockName + LABEL_ALERT, LABEL_HEADER_CLOSE);
 		
 	}
 
